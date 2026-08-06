@@ -5,9 +5,10 @@
   "type": "module",
   "description": "Static Shuffle Timeline archive page for GitHub Pages at /STL/.",
   "scripts": {
+    "export:json": "node scripts/export-content-json.mjs",
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
-    "test": "npm run build && npm run check"
+    "test": "npm run export:json && npm run build && npm run check"
   },
   "license": "MIT",
   "engines": {

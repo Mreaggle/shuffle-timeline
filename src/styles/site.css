@@ -207,7 +207,7 @@ h1 span { display: block; color: var(--lime); }
 }
 .section-head p:not(.section-code) { color: var(--muted); font-size: 1.1rem; }
 
-.note-card, .method-grid article, .event-card, .artwork-link {
+.note-card, .considerations, .method-grid article, .event-card, .artwork-link {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: rgba(13, 15, 14, .82);
@@ -215,6 +215,16 @@ h1 span { display: block; color: var(--lime); }
 .note-card { padding: clamp(1.2rem, 3vw, 2rem); columns: 2 320px; }
 .note-card p { break-inside: avoid; color: var(--paper); }
 .note-card .credit { color: var(--lime); font-weight: 900; }
+
+.considerations {
+  margin-top: 1rem;
+  padding: clamp(1.2rem, 3vw, 1.6rem);
+}
+.considerations h3 {
+  color: var(--lime);
+  text-transform: uppercase;
+}
+.considerations li { margin: .45rem 0; color: var(--muted); }
 
 .method-grid {
   display: grid;

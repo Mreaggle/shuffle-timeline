@@ -129,8 +129,16 @@ function renderMethod() {
     ${editorialNote.body.map((line) => `<p>${esc(line)}</p>`).join("")}
     <p class="credit">${esc(editorialNote.credit)} · <a href="${site.instagram}" target="_blank" rel="noopener noreferrer">@shuffletimeline</a></p>
   </article>
+  <article class="considerations">
+    <h3>Considerations</h3>
+    <ul>
+      <li>The first artwork text block is editorial context directed to the community, not a historical event inside the community timeline.</li>
+      <li>This site was developed by Mreaggle from the work started by Gaara and LuVa.</li>
+      <li>STL keeps its own JSON content file; it does not copy JUN's data registries or historical datasets.</li>
+    </ul>
+  </article>
   <div class="method-grid">
-    ${["Source first", "Hyperlinked when possible", "Confidence visible", "No data layer"].map((title, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${title}</h3><p>${methodCopy(title)}</p></article>`).join("")}
+    ${["Source first", "Hyperlinked when possible", "Confidence visible", "No JUN data copy"].map((title, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${title}</h3><p>${methodCopy(title)}</p></article>`).join("")}
   </div>
 </section>`;
 }
@@ -140,7 +148,7 @@ function methodCopy(title) {
     "Source first": "The original 8K artwork remains available as the visual reference for every extracted item.",
     "Hyperlinked when possible": "Each timeline block includes source links; if external confirmation is still missing, it links back to the source artwork.",
     "Confidence visible": "Clear, supported and uncertain readings are separated instead of flattening everything into fact.",
-    "No data layer": "The page uses curated content files and static generation, without JUN's machine-readable registry layer."
+    "No JUN data copy": "The page uses STL's own JSON/content extraction and static generation, without copying JUN's registries or datasets."
   }[title];
 }
 

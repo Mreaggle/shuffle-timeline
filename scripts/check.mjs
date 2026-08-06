@@ -10,7 +10,8 @@ for (const file of [
   "dist/STL/assets/shuffle_logo.png",
   "dist/STL/assets/source/shuffle-timeline-8k.jpg",
   "dist/STL/timeline.md",
-  "dist/STL/llms.txt"
+  "dist/STL/llms.txt",
+  "src/content/shuffle-timeline.json"
 ]) {
   if (!fs.existsSync(file)) errors.push(`Missing build artifact: ${file}`);
 }
@@ -20,6 +21,7 @@ const html = fs.existsSync("dist/STL/index.html") ? fs.readFileSync("dist/STL/in
 if (!html.includes('href="https://jumpstyle.com.br/STL/"')) errors.push("Canonical /STL/ URL missing.");
 if (!html.includes("@shuffletimeline")) errors.push("@shuffletimeline mention missing.");
 if (!html.includes("Gaara") || !html.includes("LuVa")) errors.push("Gaara/LuVa credits missing.");
+if (!html.includes("developed by Mreaggle")) errors.push("Mreaggle site-development consideration missing.");
 if (!html.includes("#C9FF00") || !html.includes("#FF1CE6")) errors.push("Required colors missing.");
 if (!html.includes("assets/shuffle_logo.png")) errors.push("Central logo path missing.");
 
@@ -31,6 +33,12 @@ for (const event of timeline) {
 
 const renderedEvents = (html.match(/data-event/g) || []).length;
 if (renderedEvents !== timeline.length) errors.push(`Rendered ${renderedEvents} events, expected ${timeline.length}.`);
+
+const json = fs.existsSync("src/content/shuffle-timeline.json")
+  ? JSON.parse(fs.readFileSync("src/content/shuffle-timeline.json", "utf8"))
+  : null;
+if (json && json.timeline?.length !== timeline.length) errors.push("STL JSON timeline count diverges from content module.");
+if (json && !json.considerations?.some((item) => item.includes("Mreaggle"))) errors.push("STL JSON missing Mreaggle consideration.");
 
 const chips = (html.match(/source-chip/g) || []).length;
 const expectedMinimum = timeline.reduce((sum, event) => sum + event.points.length, 0);

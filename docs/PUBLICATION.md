@@ -12,3 +12,7 @@ If `jumpstyle.com.br` is served by the existing Jumpstyle Brasil Pages repositor
 - link/route `/STL/` to this Pages project if the domain configuration supports project Pages under the same host.
 
 The repository itself is prepared as an independent Pages project with the correct `/STL/` base path.
+
+## Data note
+
+The project can and should keep its own JSON content file. The restriction is only that STL must not copy JUN's data layer, national registries or historical datasets as if they were Shuffle Timeline data.

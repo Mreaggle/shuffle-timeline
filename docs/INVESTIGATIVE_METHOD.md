@@ -10,6 +10,7 @@ The original image is treated as the canonical visual source. The transcription 
 4. Mark uncertain readings instead of rewriting them as fact.
 5. Keep names, dates and scene terms close to the image unless a correction is visually clear.
 6. Mention project provenance: [@shuffletimeline](https://instagram.com/shuffletimeline), Gaara and LuVa.
+7. Credit site implementation separately: the site was developed by Mreaggle from the work started by Gaara and LuVa.
 
 ## Confidence labels
 
@@ -20,4 +21,4 @@ The original image is treated as the canonical visual source. The transcription 
 
 ## Current extraction status
 
-The first public pass extracts all major timeline sections, eras, year ranges, credits, colors and source assets from the supplied artwork. Dense micro-text inside screenshots, flyers and small embedded images remains flagged for review instead of being presented as verified wording.
+The first public pass extracts all major timeline sections, eras, year ranges, credits, colors and source assets from the supplied artwork into STL's own JSON content file. Dense micro-text inside screenshots, flyers and small embedded images remains flagged for review instead of being presented as verified wording.
