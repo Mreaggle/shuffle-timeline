@@ -24,6 +24,7 @@ if (!html.includes("Gaara") || !html.includes("LuVa")) errors.push("Gaara/LuVa c
 if (!html.includes("developed by Mreaggle")) errors.push("Mreaggle site-development consideration missing.");
 if (!html.includes("#C9FF00") || !html.includes("#FF1CE6")) errors.push("Required colors missing.");
 if (!html.includes("assets/shuffle_logo.png")) errors.push("Central logo path missing.");
+if (!html.includes("G-930BMPYP28") || !html.includes("googletagmanager.com/gtag/js")) errors.push("Google tag missing.");
 
 for (const event of timeline) {
   if (!Array.isArray(sourceLinks[event.id]) || sourceLinks[event.id].length === 0) {
