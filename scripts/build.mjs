@@ -32,7 +32,7 @@ function write(file, text) {
 }
 
 function sitePath(value = "") {
-  return `${site.base}${value}`.replace(/\/{2,}/g, "/");
+  return value.replace(/^\/+/, "");
 }
 
 function esc(value) {
@@ -84,7 +84,7 @@ function renderPage() {
   <a class="skip-link" href="#timeline">Skip to timeline</a>
   <div class="signal-bar" aria-hidden="true"><div><span>Shuffle Timeline</span><span>@shuffletimeline</span><span>Gaara + LuVa</span><span>#C9FF00</span><span>#FF1CE6</span></div></div>
   <header class="site-header">
-    <a class="brand" href="${site.base}" aria-label="Shuffle Timeline home">
+    <a class="brand" href="./" aria-label="Shuffle Timeline home">
       <img src="${sitePath(site.logo)}" alt="" width="72" height="72">
       <span><strong>Shuffle Timeline</strong><small>STL archive</small></span>
     </a>
