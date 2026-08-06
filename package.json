@@ -1,0 +1,16 @@
+{
+  "name": "shuffle-timeline",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static Shuffle Timeline archive page for GitHub Pages at /STL/.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "npm run build && npm run check"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
+}
