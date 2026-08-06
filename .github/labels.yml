@@ -1,0 +1,9 @@
+- name: research
+  color: C9FF00
+  description: Timeline extraction, source or evidence work
+- name: site
+  color: FF1CE6
+  description: Public site/UI work
+- name: documentation
+  color: ffffff
+  description: Documentation and contributor guidance

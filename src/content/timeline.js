@@ -3,7 +3,7 @@ export const site = {
   shortName: "STL",
   base: "/STL/",
   url: "https://jumpstyle.com.br/STL/",
-  repository: "https://github.com/Mreaggle/STL",
+  repository: "https://github.com/Mreaggle/shuffle-timeline",
   instagram: "https://instagram.com/shuffletimeline",
   logo: "assets/shuffle_logo.png",
   sourceImage: "assets/source/shuffle-timeline-8k.jpg",

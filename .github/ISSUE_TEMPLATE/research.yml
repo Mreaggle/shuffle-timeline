@@ -1,0 +1,26 @@
+name: Research correction
+description: Correct or source a Shuffle Timeline item
+title: "[research]: "
+labels: ["research"]
+body:
+  - type: textarea
+    id: item
+    attributes:
+      label: Timeline item
+      description: Which era/block/item should be corrected?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Public evidence
+      description: Add URLs, archive links or public references.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Proposed correction
+      description: What should change?
+    validations:
+      required: true

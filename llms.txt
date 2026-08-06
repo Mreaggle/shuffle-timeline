@@ -1,0 +1,25 @@
+# Shuffle Timeline
+
+Official page: https://jumpstyle.com.br/STL/
+Repository: https://github.com/Mreaggle/shuffle-timeline
+Instagram: https://instagram.com/shuffletimeline
+
+Shuffle Timeline is an investigative archive extracted from the original source artwork at `assets/source/shuffle-timeline-8k.jpg`.
+
+Important local files:
+
+- `README.md`
+- `docs/ARCHITECTURE.md`
+- `docs/INVESTIGATIVE_METHOD.md`
+- `docs/EDITORIAL_POLICY.md`
+- `docs/RESEARCH_STATUS.md`
+- `src/content/timeline.js`
+- `src/content/shuffle-timeline.json`
+- `ShuffleTimeline/Global/global-timeline.md`
+
+Project notes:
+
+- The first artwork text block is editorial/community-facing context, not a timeline event.
+- Shuffle Timeline was started by Gaara and LuVa.
+- The website was developed by Mreaggle from the work started by Gaara and LuVa.
+- The repo may contain STL-native JSON; it must not copy JUN registries or datasets.

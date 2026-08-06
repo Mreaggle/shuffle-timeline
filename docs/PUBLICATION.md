@@ -1,5 +1,7 @@
 # Publication notes
 
+The repository should be named `shuffle-timeline`.
+
 The STL page is generated into `dist/STL/` and is configured for GitHub Pages.
 
 Expected public route:
