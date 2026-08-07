@@ -18,6 +18,7 @@ for (const file of [
 
 const html = fs.existsSync("dist/STL/index.html") ? fs.readFileSync("dist/STL/index.html", "utf8") : "";
 const css = fs.existsSync("dist/STL/assets/site.css") ? fs.readFileSync("dist/STL/assets/site.css", "utf8") : "";
+const js = fs.existsSync("dist/STL/assets/main.js") ? fs.readFileSync("dist/STL/assets/main.js", "utf8") : "";
 
 if (!html.includes('href="https://jumpstyle.com.br/STL/"')) errors.push("Canonical /STL/ URL missing.");
 if (!html.includes("@shuffletimeline")) errors.push("@shuffletimeline mention missing.");
@@ -28,6 +29,9 @@ if (!css.includes("[hidden]") || !css.includes("display: none !important")) erro
 if (html.includes("Palette") || html.includes("Lime #C9FF00") || html.includes("Neon magenta #FF1CE6")) errors.push("Palette text must not be visible in page HTML.");
 if (!html.includes("assets/shuffle_logo.png")) errors.push("Central logo path missing.");
 if (!html.includes("assets/fonts/PixelOperator.woff") && !css.includes("PixelOperator.woff")) errors.push("Pixel Operator font missing.");
+if (!html.includes("data-translate-toggle") || !html.includes("data-translate-language")) errors.push("Translation controls missing.");
+if (!js.includes("translate.google.com/translate") || !js.includes("data-translate-language")) errors.push("Translation behavior missing.");
+if (!css.includes(".translate-button") || !css.includes(".translate-panel")) errors.push("Translation CSS missing.");
 if (!html.includes("G-930BMPYP28") || !html.includes("googletagmanager.com/gtag/js")) errors.push("Google tag missing.");
 
 for (const event of timeline) {

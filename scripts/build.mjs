@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { countries, editorialNote, eras, site, sourceLinks, timeline } from "../src/content/timeline.js";
+import { countries, editorialNote, eras, site, sourceLinks, timeline, translationLanguages } from "../src/content/timeline.js";
 
 const root = process.cwd();
 const dist = path.join(root, "dist");
@@ -100,6 +100,7 @@ function renderPage() {
       <a href="#source-artwork">Source artwork</a>
       <a href="${site.instagram}" target="_blank" rel="noopener noreferrer">@shuffletimeline</a>
       <a href="${site.repository}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      ${renderTranslation()}
     </nav>
   </header>
   <main>
@@ -115,6 +116,20 @@ function renderPage() {
   <script src="${sitePath("assets/main.js")}" type="module"></script>
 </body>
 </html>`;
+}
+
+function renderTranslation() {
+  const options = translationLanguages
+    .map((language) => `<option value="${esc(language.code)}">${esc(language.name)}</option>`)
+    .join("");
+  return `<div class="translate" data-translate>
+    <button type="button" class="translate-button" aria-expanded="false" aria-controls="translate-panel" data-translate-toggle><span aria-hidden="true">A/文</span>Translate</button>
+    <div id="translate-panel" class="translate-panel" data-translate-panel hidden>
+      <label for="translate-language">Automatic translation</label>
+      <select id="translate-language" data-translate-language><option value="">Select a language</option>${options}</select>
+      <p>Opens this page through Google Translate.</p>
+    </div>
+  </div>`;
 }
 
 function renderHero() {
