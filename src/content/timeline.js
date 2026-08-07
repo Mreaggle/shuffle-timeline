@@ -44,6 +44,7 @@ export const timeline = [
     era: "underground",
     title: "House and Techno",
     confidence: "clear",
+    countries: ["US", "CA", "DE", "CO", "EC"],
     points: ["House and Techno emerged from the black and gay scenes in the USA."],
     elements: ["USA, Canada, Germany, Colombia and Ecuador flags appear near the underground-era baseline."]
   },
@@ -53,6 +54,7 @@ export const timeline = [
     era: "underground",
     title: "Aciiiiiied !!!",
     confidence: "clear",
+    countries: ["GB", "US"],
     points: [
       "Foundations of the raves and Shuffling, as well as the first rave dance style known today as UK Rave Stepping.",
       "Dropfoot was the local terminology; Foot Patrol are identified as pioneers.",
@@ -69,6 +71,7 @@ export const timeline = [
     era: "underground",
     title: "Birth of Melbourne rave scene",
     confidence: "clear",
+    countries: ["AU", "GB"],
     points: [
       "The dance was called Stomping and is known today as Pre-Melbourne Shuffle.",
       "The image links this movement to heavy influence from British dance styles, such as Northern Soul.",
@@ -83,6 +86,7 @@ export const timeline = [
     era: "underground",
     title: "The scene at its peak",
     confidence: "supported",
+    countries: ["AU"],
     points: [
       "Melbourne Underground Development (MUD) and Television Unlimited (TTU) organized raves and illegal broadcasts.",
       "Gary Shepherd is cited as witnessing the birth of the Melbourne Shuffle and sharing testimony on his blog.",
@@ -99,6 +103,7 @@ export const timeline = [
     era: "transition",
     title: "(Oldschool or Original) Melbourne Shuffle",
     confidence: "supported",
+    countries: ["AU"],
     points: [
       "The name Melbourne Shuffle begins being used as the official name of the dance.",
       "Rupert Keiller, member of Sonic Animation, mentions the name in national television around 2000.",
@@ -119,6 +124,7 @@ export const timeline = [
     era: "transition",
     title: "Melbourne Shuffle Documentary & other DVDs",
     confidence: "supported",
+    countries: ["AU"],
     points: [
       "The Melbourne Shuffle documentary is framed as showing the Melbourne rave scene and influencing the upcoming generation.",
       "Other DVDs and broadcast-era material are referenced as part of the transition from local scene to online visibility.",
@@ -132,6 +138,7 @@ export const timeline = [
     era: "youtube-facebook",
     title: "From Underground to Underage, then Worldwide",
     confidence: "supported",
+    countries: ["AU", "MY"],
     points: [
       "Malaysian students in Melbourne learn to Shuffle and spread the culture in Malaysia.",
       "The Malaysian scene reaches a peak, with local competitions and group choreographies.",
@@ -155,6 +162,7 @@ export const timeline = [
     era: "youtube-facebook",
     title: "K-Pop Music Videos",
     confidence: "supported",
+    countries: ["KR", "BR", "DE", "CN", "MX", "PL", "RU", "CL"],
     points: [
       "K-Pop videos use Shuffle in choreographies, including 2PM — I'll Be Back, T-ara — Lovey-Dovey and Girl's Day — Oh! My God.",
       "The image states that many more examples appeared over the years."
@@ -167,6 +175,7 @@ export const timeline = [
     era: "youtube-facebook",
     title: "Party Rock Anthem",
     confidence: "clear",
+    countries: ["US", "NL"],
     points: [
       "LMFAO releases its music video on March 2011, exposing billions more to Shuffling.",
       "The image credits romanceplanet and Yabujin as connected names in this block.",
@@ -180,6 +189,7 @@ export const timeline = [
     era: "youtube-facebook",
     title: "Cutting Shapes",
     confidence: "supported",
+    countries: ["GB", "US"],
     points: [
       "Cutting Shapes starts to be used as a term referring to movements with the whole body in the UK.",
       "However, the image notes that Shuffling was referencing footwork only.",
@@ -200,6 +210,7 @@ export const timeline = [
     era: "youtube-facebook",
     title: "Subtle changes",
     confidence: "supported",
+    countries: ["US", "CN", "AU"],
     points: [
       "Hardstyle Shuffle and tryouts lose popularity.",
       "Increase in lower BPM music.",
@@ -217,6 +228,7 @@ export const timeline = [
     era: "instagram-tiktok",
     title: "Instagram transition",
     confidence: "clear",
+    countries: ["AU", "US"],
     points: [
       "Instagram allowed 15-second videos in August 2015.",
       "Shuffling trends on Instagram in late 2015.",
@@ -231,6 +243,7 @@ export const timeline = [
     era: "instagram-tiktok",
     title: "New foundations",
     confidence: "supported",
+    countries: ["US", "CA", "ES", "CO", "EC", "CN", "RU", "SE"],
     points: [
       "Massive growth in female presence, headed by North Americans.",
       "Rise of Shuffle influencers, sponsorships and live performances at festivals.",
@@ -250,6 +263,7 @@ export const timeline = [
     era: "instagram-tiktok",
     title: "Pilgrimage and Professionalization",
     confidence: "clear",
+    countries: ["US", "NL", "MY", "AU"],
     points: [
       "Shufflers travel to teach and compete in many countries.",
       "Work on Shuffle Timeline begins in mid-2020.",
@@ -271,6 +285,27 @@ export const timeline = [
     elements: ["AGT image, Vanesa Seco/KTLA references, Hakken Fantasia and modern online dance screenshots."]
   }
 ];
+
+export const countries = {
+  AU: "Australia",
+  BR: "Brazil",
+  CA: "Canada",
+  CL: "Chile",
+  CN: "China",
+  CO: "Colombia",
+  DE: "Germany",
+  EC: "Ecuador",
+  ES: "Spain",
+  GB: "United Kingdom",
+  KR: "South Korea",
+  MX: "Mexico",
+  MY: "Malaysia",
+  NL: "Netherlands",
+  PL: "Poland",
+  RU: "Russia",
+  SE: "Sweden",
+  US: "United States"
+};
 
 export const sourceLinks = {
   "house-techno": [

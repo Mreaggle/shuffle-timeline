@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { editorialNote, eras, site, sourceLinks, timeline } from "../src/content/timeline.js";
+import { countries, editorialNote, eras, site, sourceLinks, timeline } from "../src/content/timeline.js";
 
 const target = path.join(process.cwd(), "src/content/shuffle-timeline.json");
 const payload = {
@@ -13,6 +13,7 @@ const payload = {
   ],
   editorialNote,
   eras,
+  countries,
   timeline,
   sourceLinks
 };

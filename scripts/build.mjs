@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { editorialNote, eras, site, sourceLinks, timeline } from "../src/content/timeline.js";
+import { countries, editorialNote, eras, site, sourceLinks, timeline } from "../src/content/timeline.js";
 
 const root = process.cwd();
 const dist = path.join(root, "dist");
@@ -196,6 +196,7 @@ function renderEvent(event, index) {
     <div class="event-index">${String(index + 1).padStart(2, "0")}</div>
     <div class="event-body">
       <p class="event-meta"><span>${esc(event.years)}</span><span>${esc(era?.label || event.era)}</span><span>${esc(event.confidence)}</span></p>
+      ${renderCountryFlags(event.countries)}
       <h3>${esc(event.title)}</h3>
       <ul>${event.points.map((point) => `<li>${linkTerms(esc(point), allLinks)} <a class="source-chip" href="${allLinks[0].url}"${externalAttrs(allLinks[0].url)}>${esc(allLinks[0].label)}</a></li>`).join("")}</ul>
       <details>
@@ -205,6 +206,16 @@ function renderEvent(event, index) {
       <div class="source-list">${allLinks.map((link) => `<a href="${link.url}"${externalAttrs(link.url)}>${esc(link.label)}</a>`).join("")}<a href="#source-artwork">Original image</a></div>
     </div>
   </article>`;
+}
+
+function renderCountryFlags(codes = []) {
+  if (!codes.length) return "";
+  return `<div class="country-flags" aria-label="Countries referenced">${codes.map((code) => `<span title="${esc(countries[code] || code)}">${flagEmoji(code)} <small>${esc(code)}</small></span>`).join("")}</div>`;
+}
+
+function flagEmoji(code) {
+  if (!/^[A-Z]{2}$/.test(code)) return "";
+  return [...code].map((letter) => String.fromCodePoint(127397 + letter.charCodeAt(0))).join("");
 }
 
 function externalAttrs(url) {

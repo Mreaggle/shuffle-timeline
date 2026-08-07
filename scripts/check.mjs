@@ -37,6 +37,9 @@ for (const event of timeline) {
 
 const renderedEvents = (html.match(/data-event/g) || []).length;
 if (renderedEvents !== timeline.length) errors.push(`Rendered ${renderedEvents} events, expected ${timeline.length}.`);
+const expectedFlagBlocks = timeline.filter((event) => event.countries?.length).length;
+const renderedFlagBlocks = (html.match(/class="country-flags"/g) || []).length;
+if (renderedFlagBlocks !== expectedFlagBlocks) errors.push(`Rendered ${renderedFlagBlocks} country flag blocks, expected ${expectedFlagBlocks}.`);
 
 const json = fs.existsSync("src/content/shuffle-timeline.json")
   ? JSON.parse(fs.readFileSync("src/content/shuffle-timeline.json", "utf8"))
