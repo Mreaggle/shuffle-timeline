@@ -1,10 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
-import { countries, editorialNote, eras, site, sourceLinks, timeline, translationLanguages } from "../src/content/timeline.js";
+import { countries, editorialNote, eras, site, timeline, translationLanguages } from "../src/content/timeline.js";
 
 const root = process.cwd();
 const dist = path.join(root, "dist");
 const out = path.join(dist, "STL");
+const recordCount = timeline.reduce((total, event) => total + event.points.length, 0);
 
 fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });
@@ -174,7 +175,7 @@ function renderMethod() {
 function methodCopy(title) {
   return {
     "Source first": "The original 8K artwork remains available as the visual reference for every extracted item.",
-    "Hyperlinked when possible": "Each timeline block includes source links; if external confirmation is still missing, it links back to the source artwork.",
+    "Hyperlinked when possible": "Every dated record carries its own related source; records without external confirmation link to the artwork and remain marked for review.",
     "Confidence visible": "Clear, supported and uncertain readings are separated instead of flattening everything into fact.",
     "No JUN data copy": "The page uses STL's own JSON/content extraction and static generation, without copying JUN's registries or datasets."
   }[title];
@@ -193,34 +194,44 @@ function renderTimeline() {
       ${eras.map((era) => `<button type="button" data-era="${era.id}" aria-pressed="false">${esc(era.label)} <small>${esc(era.years)}</small></button>`).join("")}
     </div>
     <label class="search"><span>Search timeline</span><input type="search" data-search placeholder="Melbourne, K-Pop, TikTok, phat pants..."></label>
-    <p data-count>${timeline.length} timeline blocks on view</p>
+    <p data-count>${recordCount} dated records in ${timeline.length} chapters</p>
   </div>
   <div class="timeline">
     ${timeline.map(renderEvent).join("")}
   </div>
-  <p class="empty" data-empty hidden>No timeline blocks match this filter.</p>
+  <p class="empty" data-empty hidden>No timeline chapters match this filter.</p>
 </section>`;
 }
 
 function renderEvent(event, index) {
   const era = eras.find((item) => item.id === event.era);
-  const links = sourceLinks[event.id] || [];
-  const fallback = { label: "Original STL artwork", url: "#source-artwork" };
-  const allLinks = links.length ? links : [fallback];
-  return `<article class="event-card" data-event data-era="${event.era}">
+  return `<article class="event-card" data-event data-era="${event.era}" data-record-count="${event.points.length}">
     <div class="event-index">${String(index + 1).padStart(2, "0")}</div>
     <div class="event-body">
       <p class="event-meta"><span>${esc(event.years)}</span><span>${esc(era?.label || event.era)}</span><span>${esc(event.confidence)}</span></p>
       ${renderCountryFlags(event.countries)}
       <h3>${esc(event.title)}</h3>
-      <ul>${event.points.map((point) => `<li>${linkTerms(esc(point), allLinks)} <a class="source-chip" href="${allLinks[0].url}"${externalAttrs(allLinks[0].url)}>${esc(allLinks[0].label)}</a></li>`).join("")}</ul>
+      <ol class="event-records">${event.points.map(renderRecord).join("")}</ol>
       <details>
         <summary>Visual elements extracted</summary>
         ${event.elements.map((item) => `<p>${esc(item)} <a href="#source-artwork">source artwork</a></p>`).join("")}
       </details>
-      <div class="source-list">${allLinks.map((link) => `<a href="${link.url}"${externalAttrs(link.url)}>${esc(link.label)}</a>`).join("")}<a href="#source-artwork">Original image</a></div>
     </div>
   </article>`;
+}
+
+function renderRecord(item) {
+  const review = item.needsReview
+    ? '<span class="review-status">needs review</span>'
+    : '<span class="source-status">externally sourced</span>';
+  return `<li class="timeline-record" data-record>
+    <time>${esc(item.date)}</time>
+    <div class="record-copy">
+      <p>${esc(item.text)}</p>
+      <div class="record-sources">${item.sources.map((source) => `<a class="source-chip" href="${source.url}"${externalAttrs(source.url)}>${esc(source.label)}</a>`).join("")}${review}</div>
+      ${item.note ? `<p class="record-note">${esc(item.note)}</p>` : ""}
+    </div>
+  </li>`;
 }
 
 function renderCountryFlags(codes = []) {
@@ -235,23 +246,6 @@ function flagEmoji(code) {
 
 function externalAttrs(url) {
   return url.startsWith("http") ? ' target="_blank" rel="noopener noreferrer"' : "";
-}
-
-function linkTerms(text, links) {
-  let output = text;
-  for (const link of links) {
-    const label = link.label.split(" background")[0].split(" overview")[0].split(" on IMDb")[0];
-    if (!label || label.length < 4) continue;
-    const pattern = new RegExp(`\\b(${escapeRegExp(label)})\\b`, "i");
-    if (pattern.test(output) && !output.includes(`>${label}<`)) {
-      output = output.replace(pattern, `<a href="${link.url}"${externalAttrs(link.url)}>$1</a>`);
-    }
-  }
-  return output;
-}
-
-function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function renderArtwork() {
@@ -276,7 +270,8 @@ Repository: ${site.repository}
 
 This is a static investigative extraction of the Shuffle Timeline artwork. The first editorial block is not treated as a historical timeline event.
 
-Timeline blocks: ${timeline.length}
+Timeline chapters: ${timeline.length}
+Dated records: ${recordCount}
 Eras: ${eras.map((era) => `${era.label} (${era.years})`).join("; ")}
 `;
 }
@@ -293,9 +288,11 @@ ${timeline.map((event) => `## ${event.years} — ${event.title}
 Era: ${eras.find((era) => era.id === event.era)?.label}
 Confidence: ${event.confidence}
 
-${event.points.map((point) => `- ${point}`).join("\n")}
-
-Links:
-${(sourceLinks[event.id] || []).map((link) => `- [${link.label}](${link.url})`).join("\n") || `- [Original STL artwork](${site.url}assets/source/shuffle-timeline-8k.jpg)`}
+${event.points.map((item) => `- **${item.date}** — ${item.text} ${item.sources.map((source) => `[${source.label}](${markdownUrl(source.url)})`).join(" ")}${item.needsReview ? " *(needs review)*" : ""}${item.note ? `\n  - Note: ${item.note}` : ""}`).join("\n")}
 `).join("\n")}`;
+}
+
+function markdownUrl(url) {
+  if (url === "#source-artwork") return `${site.url}assets/source/shuffle-timeline-8k.jpg`;
+  return url;
 }

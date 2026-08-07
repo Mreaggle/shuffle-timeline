@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { sourceLinks, timeline } from "../src/content/timeline.js";
+import { timeline } from "../src/content/timeline.js";
 
 const errors = [];
 
@@ -34,9 +34,29 @@ if (!js.includes("translate.google.com/translate") || !js.includes("data-transla
 if (!css.includes(".translate-button") || !css.includes(".translate-panel")) errors.push("Translation CSS missing.");
 if (!html.includes("G-930BMPYP28") || !html.includes("googletagmanager.com/gtag/js")) errors.push("Google tag missing.");
 
+const records = timeline.flatMap((event) => event.points.map((record) => ({ event, record })));
 for (const event of timeline) {
-  if (!Array.isArray(sourceLinks[event.id]) || sourceLinks[event.id].length === 0) {
-    errors.push(`Timeline block has no hyperlink sources: ${event.id}`);
+  const chapterUrls = new Set(event.points.flatMap((record) => record.sources?.map((source) => source.url) || []));
+  if (event.points.length > 1 && chapterUrls.size < 2) {
+    errors.push(`Timeline chapter reuses one hyperlink for every record: ${event.id}`);
+  }
+}
+for (const { event, record } of records) {
+  const reference = `${event.id} / ${record.date || "undated"}`;
+  if (!record.date || !record.text) errors.push(`Timeline record is incomplete: ${reference}`);
+  if (!Array.isArray(record.sources) || record.sources.length === 0) {
+    errors.push(`Timeline record has no hyperlink source: ${reference}`);
+    continue;
+  }
+  for (const source of record.sources) {
+    if (!source?.label || !source?.url) errors.push(`Timeline record has an invalid source: ${reference}`);
+  }
+  const usesArtwork = record.sources.some((source) => source.url === "#source-artwork");
+  if (record.needsReview && !usesArtwork) {
+    errors.push(`Review record must retain the original artwork: ${reference}`);
+  }
+  if (!record.needsReview && record.sources.every((source) => source.url === "#source-artwork")) {
+    errors.push(`Artwork-only record must be marked for review: ${reference}`);
   }
 }
 
@@ -45,20 +65,26 @@ if (renderedEvents !== timeline.length) errors.push(`Rendered ${renderedEvents} 
 const expectedFlagBlocks = timeline.filter((event) => event.countries?.length).length;
 const renderedFlagBlocks = (html.match(/class="country-flags"/g) || []).length;
 if (renderedFlagBlocks !== expectedFlagBlocks) errors.push(`Rendered ${renderedFlagBlocks} country flag blocks, expected ${expectedFlagBlocks}.`);
+const renderedRecords = (html.match(/data-record>/g) || []).length;
+if (renderedRecords !== records.length) errors.push(`Rendered ${renderedRecords} records, expected ${records.length}.`);
 
 const json = fs.existsSync("src/content/shuffle-timeline.json")
   ? JSON.parse(fs.readFileSync("src/content/shuffle-timeline.json", "utf8"))
   : null;
 if (json && json.timeline?.length !== timeline.length) errors.push("STL JSON timeline count diverges from content module.");
 if (json && !json.considerations?.some((item) => item.includes("Mreaggle"))) errors.push("STL JSON missing Mreaggle consideration.");
+const jsonRecordCount = json?.timeline?.reduce((sum, event) => sum + event.points.length, 0);
+if (json && jsonRecordCount !== records.length) errors.push("STL JSON record count diverges from content module.");
 
 const chips = (html.match(/source-chip/g) || []).length;
-const expectedMinimum = timeline.reduce((sum, event) => sum + event.points.length, 0);
-if (chips < expectedMinimum) errors.push(`Rendered ${chips} source chips, expected at least ${expectedMinimum}.`);
+const expectedSources = records.reduce((sum, item) => sum + item.record.sources.length, 0);
+if (chips !== expectedSources) errors.push(`Rendered ${chips} source chips, expected ${expectedSources}.`);
+if (html.includes("Instagram allowed 15-second videos in August 2015")) errors.push("Known Instagram date error was reintroduced.");
+if (!html.includes("Meta documents its launch on June 20, 2013")) errors.push("Instagram date correction is missing.");
 
 if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
 }
 
-console.log(`STL check passed: ${timeline.length} blocks, ${expectedMinimum} linked timeline items.`);
+console.log(`STL check passed: ${timeline.length} chapters, ${records.length} dated and linked records.`);

@@ -21,4 +21,4 @@ The original image is treated as the canonical visual source. The transcription 
 
 ## Current extraction status
 
-The first public pass extracts all major timeline sections, eras, year ranges, credits, colors and source assets from the supplied artwork into STL's own JSON content file. Dense micro-text inside screenshots, flyers and small embedded images remains flagged for review instead of being presented as verified wording.
+The public extraction preserves the artwork's major visual chapters while publishing each readable claim as its own dated record. A record carries its own source list and review state; chapter-level links are never propagated to unrelated records. Precise dates are used only when supported, while approximate dates and ranges remain visible where the evidence is broad. Dense micro-text inside screenshots, flyers and small embedded images remains flagged for review instead of being presented as verified wording.

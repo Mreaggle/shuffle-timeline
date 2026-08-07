@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { countries, editorialNote, eras, site, sourceLinks, timeline, translationLanguages } from "../src/content/timeline.js";
+import { countries, editorialNote, eras, site, sourceCatalog, timeline, translationLanguages } from "../src/content/timeline.js";
 
 const target = path.join(process.cwd(), "src/content/shuffle-timeline.json");
 const payload = {
@@ -15,8 +15,8 @@ const payload = {
   eras,
   countries,
   translationLanguages,
+  sourceCatalog,
   timeline,
-  sourceLinks
 };
 
 fs.mkdirSync(path.dirname(target), { recursive: true });

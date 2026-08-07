@@ -8,4 +8,4 @@ The archive distinguishes:
 - uncertain readings;
 - external source links.
 
-Every timeline item should be hyperlinked when possible. If the only current source is the original artwork, the item must still link to that artwork and remain open for review.
+Every dated record must carry at least one directly related hyperlink. If the only current source is the original artwork, the record must link to that artwork and set `needsReview: true`. A chapter-level source must never be assigned automatically to every record in that chapter.
