@@ -11,6 +11,8 @@ fs.mkdirSync(out, { recursive: true });
 
 copy("assets/shuffle_logo.png", "assets/shuffle_logo.png");
 copy("assets/source/shuffle-timeline-8k.jpg", "assets/source/shuffle-timeline-8k.jpg");
+copy("assets/fonts/PixelOperator.woff", "assets/fonts/PixelOperator.woff");
+copy("assets/fonts/PixelOperator-Bold.woff", "assets/fonts/PixelOperator-Bold.woff");
 copy("src/styles/site.css", "assets/site.css");
 copy("src/scripts/main.js", "assets/main.js");
 
@@ -85,7 +87,7 @@ function renderPage() {
 </head>
 <body>
   <a class="skip-link" href="#timeline">Skip to timeline</a>
-  <div class="signal-bar" aria-hidden="true"><div><span>Shuffle Timeline</span><span>@shuffletimeline</span><span>Gaara + LuVa</span><span>#C9FF00</span><span>#FF1CE6</span></div></div>
+  <div class="signal-bar" aria-hidden="true"><div><span>Shuffle Timeline</span><span>@shuffletimeline</span><span>Gaara + LuVa</span><span>Keep shuffling</span><span>Keep learning</span></div></div>
   <header class="site-header">
     <a class="brand" href="./" aria-label="Shuffle Timeline home">
       <img src="${sitePath(site.logo)}" alt="" width="72" height="72">
@@ -125,7 +127,6 @@ function renderHero() {
   </div>
   <div class="hero-logo">
     <img src="${sitePath(site.logo)}" alt="Shuffle Timeline logo" width="1024" height="1024">
-    <p><strong>Palette</strong> Lime ${site.colors.lime} · Neon magenta ${site.colors.magenta}</p>
   </div>
 </section>`;
 }

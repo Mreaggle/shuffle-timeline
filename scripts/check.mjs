@@ -17,13 +17,16 @@ for (const file of [
 }
 
 const html = fs.existsSync("dist/STL/index.html") ? fs.readFileSync("dist/STL/index.html", "utf8") : "";
+const css = fs.existsSync("dist/STL/assets/site.css") ? fs.readFileSync("dist/STL/assets/site.css", "utf8") : "";
 
 if (!html.includes('href="https://jumpstyle.com.br/STL/"')) errors.push("Canonical /STL/ URL missing.");
 if (!html.includes("@shuffletimeline")) errors.push("@shuffletimeline mention missing.");
 if (!html.includes("Gaara") || !html.includes("LuVa")) errors.push("Gaara/LuVa credits missing.");
 if (!html.includes("developed by Mreaggle")) errors.push("Mreaggle site-development consideration missing.");
-if (!html.includes("#C9FF00") || !html.includes("#FF1CE6")) errors.push("Required colors missing.");
+if (!css.includes("#C9FF00") || !css.includes("#FF1CE6")) errors.push("Required colors missing from CSS.");
+if (html.includes("Palette") || html.includes("Lime #C9FF00") || html.includes("Neon magenta #FF1CE6")) errors.push("Palette text must not be visible in page HTML.");
 if (!html.includes("assets/shuffle_logo.png")) errors.push("Central logo path missing.");
+if (!html.includes("assets/fonts/PixelOperator.woff") && !css.includes("PixelOperator.woff")) errors.push("Pixel Operator font missing.");
 if (!html.includes("G-930BMPYP28") || !html.includes("googletagmanager.com/gtag/js")) errors.push("Google tag missing.");
 
 for (const event of timeline) {
