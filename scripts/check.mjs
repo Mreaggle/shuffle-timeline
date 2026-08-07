@@ -24,6 +24,7 @@ if (!html.includes("@shuffletimeline")) errors.push("@shuffletimeline mention mi
 if (!html.includes("Gaara") || !html.includes("LuVa")) errors.push("Gaara/LuVa credits missing.");
 if (!html.includes("developed by Mreaggle")) errors.push("Mreaggle site-development consideration missing.");
 if (!css.includes("#C9FF00") || !css.includes("#FF1CE6")) errors.push("Required colors missing from CSS.");
+if (!css.includes("[hidden]") || !css.includes("display: none !important")) errors.push("CSS must force hidden elements out of layout for filters/search.");
 if (html.includes("Palette") || html.includes("Lime #C9FF00") || html.includes("Neon magenta #FF1CE6")) errors.push("Palette text must not be visible in page HTML.");
 if (!html.includes("assets/shuffle_logo.png")) errors.push("Central logo path missing.");
 if (!html.includes("assets/fonts/PixelOperator.woff") && !css.includes("PixelOperator.woff")) errors.push("Pixel Operator font missing.");
