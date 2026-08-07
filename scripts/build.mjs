@@ -95,12 +95,12 @@ function renderPage() {
     </a>
     <button class="menu-button" type="button" data-menu-button aria-controls="site-nav" aria-expanded="false"><span></span><span class="sr-only">Menu</span></button>
     <nav id="site-nav" class="site-nav" data-site-nav aria-label="Sections">
+      ${renderTranslation()}
       <a href="#method">Method</a>
       <a href="#timeline">Timeline</a>
       <a href="#source-artwork">Source artwork</a>
       <a href="${site.instagram}" target="_blank" rel="noopener noreferrer">@shuffletimeline</a>
       <a href="${site.repository}" target="_blank" rel="noopener noreferrer">GitHub</a>
-      ${renderTranslation()}
     </nav>
   </header>
   <main>
